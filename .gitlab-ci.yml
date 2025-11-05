@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: homelab-vite
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+
+cache:
+  paths:
+    - app/node_modules/
+
+# Stage 1
+build_image:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  script:
+    - cd app
+    - npm ci
+    - npm run build
+    - cd ..
+    - podman build -t $IMAGE_NAME:$IMAGE_TAG .
+    - podman save -t $IMAGE_NAME:$IMAGE_TAG > image.tar
+  artifacts:
+    paths:
+      - image.tar
+    expire_in: 1 hour
+  only:
+    - main
+
+# Stage 2
+deploy_app:
+  stage: deploy
+  image: docker:24-dind
+  script:
+    - podman load < image.tar
+    - podman tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest
+    - podman-compose -f compose.yml down || true
+    - podman-compose -f compose.yml up -d
+  environment: production
+  only:
+    - main

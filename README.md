@@ -4,7 +4,7 @@ A fully on-premise CI/CD pipeline that auto-builds, deploys, and updates.
 
 ---
 
-## Architecture Diagram
+## Flow
 
 [GitHub/GitLab]
      ↓ (git push)
