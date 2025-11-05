@@ -3,18 +3,20 @@ stages:
   - deploy
 
 variables:
-  GITLAB_URL: "http://192.168.0.113:8181"
   IMAGE_NAME: homelab-vite
   IMAGE_TAG: $CI_COMMIT_SHORT_SHA
 
+# Cache node_modules between runs
 cache:
   paths:
     - app/node_modules/
 
+# STAGE 1: Build Image
 build_image:
   stage: build
-  tags:
-    - podman
+  image: docker:24-dind
+  services:
+    - docker:24-dind
   script:
     - cd app
     - npm ci
@@ -29,10 +31,10 @@ build_image:
   only:
     - main
 
+# STAGE 2: Deploy to Homelab
 deploy_app:
   stage: deploy
-  tags:
-    - podman
+  image: docker:24-dind
   script:
     - podman load < image.tar
     - podman tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest

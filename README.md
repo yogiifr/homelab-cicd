@@ -50,22 +50,22 @@ A fully on-premise CI/CD pipeline that auto-builds, deploys, and updates.
 
 ### Phase 4: CI/CD Pipeline (In Progress)
 
-- [ ] `.gitlab-ci.yml` with `build` + `deploy` stages  
-- [ ] Auto-build image on `git push`  
-- [ ] Auto-deploy via `podman-compose`  
-- [ ] Zero-downtime update
+- [x] `.gitlab-ci.yml` with `build` + `deploy` stages  
+- [x] Auto-build image on `git push`  
+- [x] Auto-deploy via `podman-compose`  
+- [x] Zero-downtime update
 
 ### Phase 5: Live Demo & Portfolio (Upcoming)
 
-- [ ] `ngrok` live URL  
-- [ ] 2-min demo video  
-- [ ] Full documentation + architecture diagram  
+- [x] `ngrok` live URL  
+- [x] 2-min demo video  
+- [x] Full documentation + architecture diagram  
 
 ---
 
 ## Lesson Learned
 
-- Running Gitlab di server on-premise makan banyak ram, coba lanjut implement cloud stack untuk next project
+- Running Gitlab di server on-premise makan banyak ram, coba lanjut implement cloud tech untuk next project
 
 ---
 
