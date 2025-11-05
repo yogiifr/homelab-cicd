@@ -3,6 +3,7 @@ stages:
   - deploy
 
 variables:
+  GITLAB_URL: "http://192.168.0.113:8181"
   IMAGE_NAME: homelab-vite
   IMAGE_TAG: $CI_COMMIT_SHORT_SHA
 
