@@ -2,6 +2,18 @@
 
 A fully on-premise CI/CD pipeline that auto-builds, deploys, and updates.
 
+---
+
+## Flow
+
+[GitHub/GitLab]
+     ↓ (git push)
+[GitLab Server] → trigger → [GitLab Runner di Home Server]
+     ↓
+[Build Docker Image] → [Push to Local Registry] → [Deploy via Docker Compose]
+     ↓
+[Live App: http://homelab.local:3000]
+
 ## Stack
 
 - **Vite + TypeScript** – Frontend app  
@@ -53,7 +65,7 @@ A fully on-premise CI/CD pipeline that auto-builds, deploys, and updates.
 
 ## Lesson Learned
 
--
+- Running Gitlab di server on-premise makan banyak ram, coba lanjut implement cloud stack untuk next project
 
 ---
 
