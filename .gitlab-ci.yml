@@ -10,15 +10,10 @@ cache:
   paths:
     - app/node_modules/
 
-# STAGE 1: Build Image
 build_image:
   stage: build
-  image: docker:24-dind
-  services:
-    - name: docker:24-dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
+  tags:
+    - podman
   script:
     - cd app
     - npm ci
@@ -33,15 +28,10 @@ build_image:
   only:
     - main
 
-# STAGE 2: Deploy
 deploy_app:
   stage: deploy
-  image: docker:24-dind
-  services:
-    - name: docker:24-dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
+  tags:
+    - podman
   script:
     - podman load < image.tar
     - podman tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest
